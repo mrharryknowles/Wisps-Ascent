@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // jumps can be released without needing to fully charge
         if (Input.GetKeyUp(KeyCode.Space) && charging)
         {
             ReleaseJump();
