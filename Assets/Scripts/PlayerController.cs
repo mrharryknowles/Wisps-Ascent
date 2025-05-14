@@ -32,12 +32,19 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(move * moveSpeed, rb.velocity.y, 0f);
         }
 
+        // forces any horizontal movement to stop whilst charging
+        if (charging)
+        {
+            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+        }
+
         // start charging a jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             charging = true;
             jumpPower = minJump;
             chargeTimer = 0f;
+
         }
 
         // while holding, increase the jump power
