@@ -13,9 +13,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // this is a test;
+     
     }
 }
-
-// This is a test. Initial GitHub commit. 
 
