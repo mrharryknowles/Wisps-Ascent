@@ -7,12 +7,14 @@ public class PlayerController : MonoBehaviour
     public float maxJump = 15f;
     public float chargeRate = 10f;
     public float maxChargeTime = 2f;
+    public float horizontalJumpMultiplier = 0.5f;
 
     private Rigidbody rb;
     private bool isGrounded = true;
     private float jumpPower = 0f;
     private bool charging = false;
     private float chargeTimer = 0f;
+    private int inputDirection = 0;
 
     void Start()
     {
@@ -25,6 +27,8 @@ public class PlayerController : MonoBehaviour
         if (!charging && isGrounded)
         {
             float move = Input.GetAxisRaw("Horizontal"); // a/d or left/right
+            inputDirection = (int)move;
+
             rb.velocity = new Vector3(move * moveSpeed, rb.velocity.y, 0f);
         }
 
@@ -70,8 +74,11 @@ public class PlayerController : MonoBehaviour
 
     void ReleaseJump()
     {
-        rb.velocity = new Vector3(0f, 0f, 0f);
-        rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        Vector3 jumpDir = new Vector3(inputDirection * horizontalJumpMultiplier * jumpPower, jumpPower, 0f);
+
+        rb.velocity = Vector3.zero;
+        rb.AddForce(jumpDir, ForceMode.Impulse);
+
         charging = false;
         isGrounded = false;
     }
